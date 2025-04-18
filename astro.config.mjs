@@ -45,6 +45,6 @@ export default defineConfig({
 			},
 		},
 	},
-	site: 'https://wey.alexsab.ru',
+	site: 'https://wey-penza.ru',
 	base: "/"
 });
