@@ -2,8 +2,8 @@ import json
 import os
 
 dealer = {
-    "city": "Город",
-    "where": "Городе",
+    "city": "Пенза",
+    "where": "Пензе",
 }
 
 # Загружаем model_mapping из JSON файла
