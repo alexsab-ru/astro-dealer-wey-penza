@@ -70,14 +70,19 @@ prepare_commits_message() {
 
     local TOTAL_COMMITS=${#commit_messages[@]}
     
-    if [ "$TOTAL_COMMITS" -eq 1 ]; then
-        COMMITS_TEXT="$TOTAL_COMMITS new commit"
-    else
-        COMMITS_TEXT="$TOTAL_COMMITS new commits"
-    fi
-
     # Подготовка заголовка
-    HEADER="<b>[${repository_name}:${ref_name}]</b> <b><a href=\"https://github.com/${repository}/compare/${compare_hash}\">$COMMITS_TEXT</a></b> by <b><a href=\"https://github.com/${actor}\">${actor}</a></b>"
+    if [ -z "$compare_hash" ]; then
+        # Формат для одиночного коммита или кастомного сообщения
+        HEADER="<b>[${repository_name}:${ref_name}]</b> <b><a href=\"https://github.com/${repository}/commit/$(git rev-parse HEAD)\">Last commit</a></b>"
+    else
+        # Формат для множества коммитов
+        if [ "$TOTAL_COMMITS" -eq 1 ]; then
+            COMMITS_TEXT="$TOTAL_COMMITS new commit"
+        else
+            COMMITS_TEXT="$TOTAL_COMMITS new commits"
+        fi
+        HEADER="<b>[${repository_name}:${ref_name}]</b> <b><a href=\"https://github.com/${repository}/compare/${compare_hash}\">$COMMITS_TEXT</a></b> by <b><a href=\"https://github.com/${actor}\">${actor}</a></b>"
+    fi
 
     # Создаем временную директорию для сообщений
     mkdir -p ./tmp_messages || { echo "Error: Failed to create tmp_messages directory" >&2; return 1; }
@@ -98,12 +103,19 @@ prepare_commits_message() {
         # Проверяем длину коммита
         if [ $COMMIT_LENGTH -gt $MAX_COMMIT_LENGTH ]; then
             echo "Warning: Commit message is too long and will be truncated" >&2
+            
+            # Получаем все открытые теги с учетом вложенности
+            local opened_tags=($(get_opened_tags "$COMMIT_WITH_NEWLINE"))
+            
             # Обрезаем коммит с учетом места под эллипсис
-            if [[ "$COMMIT_WITH_NEWLINE" == *"<pre>"* ]]; then
-                COMMIT_WITH_NEWLINE="${COMMIT_WITH_NEWLINE:0:$((MAX_COMMIT_LENGTH - ELLIPSIS_LENGTH))} ...</pre>\n"
-            else
-                COMMIT_WITH_NEWLINE="${COMMIT_WITH_NEWLINE:0:$((MAX_COMMIT_LENGTH - ELLIPSIS_LENGTH))} ...\n"
-            fi
+            local truncated_commit="${COMMIT_WITH_NEWLINE:0:$((MAX_COMMIT_LENGTH - ELLIPSIS_LENGTH))} ..."
+            
+            # Закрываем все открытые теги в обратном порядке
+            for ((i=${#opened_tags[@]}-1; i>=0; i--)); do
+                truncated_commit+="</${opened_tags[$i]}>"
+            done
+            
+            COMMIT_WITH_NEWLINE="${truncated_commit}\n"
             COMMIT_LENGTH=${#COMMIT_WITH_NEWLINE}
         fi
 
@@ -130,4 +142,69 @@ prepare_commits_message() {
     fi
 
     echo $PART_INDEX
+}
+
+########################################
+# Функция для получения всех открытых HTML тегов из строки
+# Принимает строку и возвращает массив открытых тегов
+########################################
+get_opened_tags() {
+    local input="$1"
+    local tag_stack=()
+    
+    # Ищем все теги (открывающие и закрывающие)
+    while [[ $input =~ \<(/?)([a-z]+)[\>] ]]; do
+        local is_closing="${BASH_REMATCH[1]}"
+        local tag="${BASH_REMATCH[2]}"
+        
+        # Пропускаем самозакрывающиеся теги
+        if [[ ! $tag =~ ^(img|br|hr|input|meta|link)$ ]]; then
+            if [ -z "$is_closing" ]; then
+                # Открывающий тег - добавляем в стек
+                tag_stack+=("$tag")
+            else
+                # Закрывающий тег - ищем соответствующий открывающий тег
+                # Ищем с конца массива, чтобы найти последний открытый тег такого типа
+                local found=0
+                for ((i=${#tag_stack[@]}-1; i>=0; i--)); do
+                    if [[ "${tag_stack[$i]}" == "$tag" ]]; then
+                        # Удаляем тег и все теги после него (они были открыты позже)
+                        tag_stack=("${tag_stack[@]:0:$i}")
+                        found=1
+                        break
+                    fi
+                done
+                
+                # Если не нашли закрывающий тег, значит это неправильная структура
+                # Но мы все равно добавляем его в стек, чтобы потом закрыть
+                if [ $found -eq 0 ]; then
+                    tag_stack+=("$tag")
+                fi
+            fi
+        fi
+        # Удаляем найденный тег из строки для следующей итерации
+        input="${input#*<}"
+    done
+    
+    # Возвращаем оставшиеся открытые теги
+    echo "${tag_stack[@]}"
+}
+
+########################################
+# Функция для получения всех закрытых HTML тегов из строки
+# Принимает строку и возвращает массив закрытых тегов
+########################################
+get_closed_tags() {
+    local input="$1"
+    local closed_tags=()
+    
+    # Ищем все закрывающие теги
+    while [[ $input =~ \<\/([a-z]+)[\>] ]]; do
+        local tag="${BASH_REMATCH[1]}"
+        closed_tags+=("$tag")
+        # Удаляем найденный тег из строки для следующей итерации
+        input="${input#*</}"
+    done
+    
+    echo "${closed_tags[@]}"
 }
