@@ -1,0 +1,36 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import settings from '@/data/settings.json';
+import AdvantagesItem from '@/components/Advantages/Item.astro';
+import { Icon } from 'astro-icon/components';
+const { brand, legal_city_where } = settings;
+import modelsData from '@/data/models.json';
+const { models } = modelsData;
+
+const links = {
+	"wey-05": "https://cdn.alexsab.ru/manuals/wey/manual-wey-05.pdf",
+	"wey-07": "https://cdn.alexsab.ru/manuals/wey/manual-WEY-07-RUS.pdf",
+	"wey-80-premium": "https://cdn.alexsab.ru/manuals/wey/M80-PREMIUM-RUS.pdf",
+	"wey-80-business-lounge": "https://cdn.alexsab.ru/manuals/wey/WEY-80-BUSINESS-LOUNGЕ.pdf",
+};
+---
+
+<PageLayout
+    h1={`Руководства по эксплуатации`}
+    title={`Руководства по эксплуатации ${brand}`}
+	description={`Скачайте руководства по эксплуатации на модели WEY 05, WEY 07 и WEY 80.`}
+    breadcrumb={[{name:"Руководства по эксплуатации",href:""}]}
+>
+	<div class="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 mt-14">
+		{models.map(model => (
+			<div class="bg-[#d8d3cfb2] p-5 relative z-[1]">
+				<h3 class="!text-xl font-semibold">{model.mark_id} {model.name}</h3>
+				<img src={model.thumb} class="w-full h-auto my-10 sm:my-20" alt={`${model.mark_id} ${model.name}`}>
+				<img class="absolute right-0 top-0 z-[-1] w-auto h-full" src="https://gwm-wey.ru/bg-user-manuals.png" alt="background iamge lines">
+				<div class="flex justify-center">
+					<a href={links[model.id] || '#'} class="btn btn-o !text-sm sm:!text-base !m-0 !px-4" target="_blank">Скачать руководство</a>
+				</div>
+			</div>
+		))}
+	</div>
+</PageLayout>
