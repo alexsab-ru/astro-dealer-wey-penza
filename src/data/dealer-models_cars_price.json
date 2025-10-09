@@ -7,6 +7,12 @@
   },
   {
     "brand": "Wey",
+    "model": "07",
+    "price": 6199000,
+    "benefit": 700000
+  },
+  {
+    "brand": "Wey",
     "model": "80 Premium",
     "price": 6099000,
     "benefit": 800000
