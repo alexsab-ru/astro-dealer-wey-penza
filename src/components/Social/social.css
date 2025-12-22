@@ -1,3 +1,5 @@
+@reference "../../scss/app.css";
+
 .icon-link {
 		@apply text-white/40;
     &.social-link{
