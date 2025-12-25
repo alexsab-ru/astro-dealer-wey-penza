@@ -1,6 +1,0 @@
-.menu-more-btn { 	background: none; border: none; cursor: pointer; padding-inline: 13px; align-items: center; height: 100%; }
-.menu-more-btn svg path { color: white; }
-.more-menu { display: none; position: absolute; background: #024e6b; list-style: none; padding: 0; top: 100%; right: 0; @apply shadow-2xl; }
-.more-menu a { color: rgba(255, 255, 255, .9); }
-.more-menu li > ul{ top: 0; right: 100%; }
-.more-menu.visible { display: block; }
