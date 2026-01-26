@@ -1,13 +1,16 @@
 ---
-h1: Программа кредитования WEY Credit
+h1: Программа кредитования WEY Credit *
 title: Автомобиль WEY в кредит — условия программы кредитования
 caption: Программа кредитования WEY Credit
 breadcrumb: Программа кредитования WEY Credit
-pubDate: 2025-03-31
+pubDate: 2026-01-12
 image: https://cdn.alexsab.ru/b/wey/img/special-offers/credits/credits-mobile.webp
 description: Выберите премиальные автомобили WEY. Узнайте наличие, актуальные цены, модели и комплектации на официальном сайте. Ваш новый автомобиль ждет вас — без ожидания и длительных поставок!
 ---
 import FeedbackForm from '@/components/FeedbackForm/FeedbackForm.astro';
+import settings from '@/data/settings.json';
+export const { phone_common, legal_entity } = settings;
+import { phoneFormat } from '@/js/utils/numbers.format';
 
 <picture>
     <source media="(min-width: 768px)" srcset="https://cdn.alexsab.ru/b/wey/img/special-offers/credits/credits-desktop.webp" />
@@ -22,172 +25,104 @@ import FeedbackForm from '@/components/FeedbackForm/FeedbackForm.astro';
   <div class="bg-gray-100 rounded-xl p-4 lg:p-8">Выбери автомобиль и получи рассчет ежемесячных платежей и стоимости КАСКО</div>
 </div>
 
-<h2>Выгодные предложения для покупки WEY</h2>
-<div class="overflow-x-auto mb-12">
-  <table class="table-auto">
-    <tbody>
-      <tr>
-        <td colspan="3"><strong>WEY EXTRA *</strong></td>
-      </tr>
-      <tr>
-        <td rowspan="2"><strong>WEY 05</strong></td>
-        <td>Первоначальный взнос: 60% - 80%</td>
-        <td rowspan="2">Ставка: <strong>0,01%</strong></td>
-      </tr>
-      <tr>
-        <td>Срок кредитования: 12 месяцев</td>
-      </tr>
-      <tr>
-        <td rowspan="2"><strong>WEY 07</strong></td>
-        <td>Первоначальный взнос: 60% - 80%</td>
-        <td rowspan="2">Ставка: <strong>7,6%</strong></td>
-      </tr>
-      <tr>
-        <td>Срок кредитования: 12 месяцев</td>
-      </tr>
-      <tr>
-        <td colspan="3"><strong>WEY FIX **</strong></td>
-      </tr>
-      <tr>
-        <td rowspan="2"><strong>WEY 05</strong></td>
-        <td>Первоначальный взнос: 60% - 80%</td>
-        <td rowspan="2">Ставка: <strong>7,49%</strong></td>
-      </tr>
-      <tr>
-        <td>Срок кредитования: 36 месяцев</td>
-      </tr>
-      </tbody>
-  </table>
+<h2>WEY PRIME **</h2>
+<p class="text-center">Программа доступна для моделей <strong>WEY 07</strong> и <strong>WEY 05</strong></p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-gray-600 mb-2">Полная стоимость кредита</div>
+    <div class="text-xl font-bold">0,005% до 14,890%</div>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-gray-600 mb-2">Первоначальный взнос</div>
+    <div class="text-xl font-bold">10% - 80%</div>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-gray-600 mb-2">Срок кредитования</div>
+    <div class="text-xl font-bold">12, 36, 60, 84 мес.</div>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-gray-600 mb-2">Ставка</div>
+    <div class="text-xl font-bold">от 0,01%</div>
+  </div>
 </div>
-
-<h2>Условия программы WEY EXTRA для WEY 05 *</h2>
 <div class="overflow-x-auto mb-12">
-  <table class="table-auto">
+  <table class="w-full border-collapse">
+    <thead>
+      <tr class="bg-blue-50">
+        <th rowspan="2" class="border border-gray-300 p-3 text-center font-semibold">
+          Первоначальный<br />взнос
+        </th>
+        <th rowspan="2" class="border border-gray-300 p-3 text-center font-semibold">
+          Полная стоимость кредита
+        </th>
+        <th colspan="4" class="border border-gray-300 p-3 text-center font-semibold">
+          Ставка по кредиту
+        </th>
+      </tr>
+      <tr class="bg-blue-50">
+        <th class="border border-gray-300 p-3 text-center font-semibold text-blue-700">
+          12 мес.
+        </th>
+        <th class="border border-gray-300 p-3 text-center font-semibold text-blue-700">
+          36 мес.
+        </th>
+        <th class="border border-gray-300 p-3 text-center font-semibold text-blue-700">
+          60 мес.
+        </th>
+        <th class="border border-gray-300 p-3 text-center font-semibold text-blue-700">
+          84 мес.
+        </th>
+      </tr>
+    </thead>
     <tbody>
-      <tr>
-        <td rowspan="2"><strong>Модель</strong></td>
-        <td rowspan="2"><strong>Первоначальный взнос, %</strong></td>
-        <td colspan="7"><strong>Срок кредитования, мес./ ставка по кредиту %</strong></td>
+      <tr class="hover:bg-gray-50">
+        <td class="border border-gray-300 p-3 text-center font-semibold">60% - 80%</td>
+        <td class="border border-gray-300 p-3 text-center">0,005% - 7,891%</td>
+        <td class="border border-gray-300 p-3 text-center">0,01%</td>
+        <td class="border border-gray-300 p-3 text-center">0,01%</td>
+        <td class="border border-gray-300 p-3 text-center">5,0%</td>
+        <td class="border border-gray-300 p-3 text-center">7,5%</td>
       </tr>
-      <tr>
-        <td><strong>12</strong></td>
-        <td><strong>24</strong></td>
-        <td><strong>36</strong></td>
-        <td><strong>48</strong></td>
-        <td><strong>60</strong></td>
-        <td><strong>72</strong></td>
-        <td><strong>84</strong></td>
+      <tr class="hover:bg-gray-50">
+        <td class="border border-gray-300 p-3 text-center font-semibold">50% - 59,99%</td>
+        <td class="border border-gray-300 p-3 text-center">0,005% - 10,932%</td>
+        <td class="border border-gray-300 p-3 text-center">0,01%</td>
+        <td class="border border-gray-300 p-3 text-center">4,4%</td>
+        <td class="border border-gray-300 p-3 text-center">8,2%</td>
+        <td class="border border-gray-300 p-3 text-center">10,5%</td>
       </tr>
-      <tr>
-        <td rowspan="4"><strong>WEY 05</strong></td>
-        <td>60% - 80%</td>
-        <td>0,01</td>
-        <td>10,0</td>
-        <td>14,5</td>
-        <td>16,0</td>
-        <td>16,3</td>
-        <td>17,4</td>
-        <td>17,4</td>
+      <tr class="hover:bg-gray-50">
+        <td class="border border-gray-300 p-3 text-center font-semibold">40% - 49,99%</td>
+        <td class="border border-gray-300 p-3 text-center">0,005% - 12,353%</td>
+        <td class="border border-gray-300 p-3 text-center">0,01%</td>
+        <td class="border border-gray-300 p-3 text-center">6,4%</td>
+        <td class="border border-gray-300 p-3 text-center">9,3%</td>
+        <td class="border border-gray-300 p-3 text-center">11,9%</td>
       </tr>
-      <tr>
-        <td>40% - 59,9%</td>
-        <td>9,3</td>
-        <td>16,3</td>
-        <td>18,8</td>
-        <td>19,8</td>
-        <td>19,8</td>
-        <td>20,9</td>
-        <td>20,9</td>
+      <tr class="hover:bg-gray-50">
+        <td class="border border-gray-300 p-3 text-center font-semibold">30% - 39,99%</td>
+        <td class="border border-gray-300 p-3 text-center">0,005% - 13,367%</td>
+        <td class="border border-gray-300 p-3 text-center">0,01%</td>
+        <td class="border border-gray-300 p-3 text-center">8,0%</td>
+        <td class="border border-gray-300 p-3 text-center">11,5%</td>
+        <td class="border border-gray-300 p-3 text-center">12,9%</td>
       </tr>
-      <tr>
-        <td>30% - 39,9%</td>
-        <td>11,2</td>
-        <td>17,7</td>
-        <td>18,8</td>
-        <td>20,4</td>
-        <td>20,7</td>
-        <td>20,9</td>
-        <td>20,9</td>
-      </tr>
-      <tr>
-        <td>10% - 29,9%</td>
-        <td>15,3</td>
-        <td>19,7</td>
-        <td>20,5</td>
-        <td>22,0</td>
-        <td>22,0</td>
-        <td>22,4</td>
-        <td>22,4</td>
+      <tr class="hover:bg-gray-50">
+        <td class="border border-gray-300 p-3 text-center font-semibold">10% - 29,99%</td>
+        <td class="border border-gray-300 p-3 text-center">2,363% - 14,890%</td>
+        <td class="border border-gray-300 p-3 text-center">2,9%</td>
+        <td class="border border-gray-300 p-3 text-center">10,9%</td>
+        <td class="border border-gray-300 p-3 text-center">13,1%</td>
+        <td class="border border-gray-300 p-3 text-center">14,4%</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h2>Условия программы WEY EXTRA для WEY 07 ***</h2>
-<div class="overflow-x-auto mb-12">
-  <table class="table-auto">
-    <tbody>
-      <tr>
-        <td rowspan="2"><strong>Модель</strong></td>
-        <td rowspan="2"><strong>Первоначальный взнос, %</strong></td>
-        <td colspan="7"><strong>Срок кредитования, мес./ ставка по кредиту %</strong></td>
-      </tr>
-      <tr>
-        <td><strong>12</strong></td>
-        <td><strong>24</strong></td>
-        <td><strong>36</strong></td>
-        <td><strong>48</strong></td>
-        <td><strong>60</strong></td>
-        <td><strong>72</strong></td>
-        <td><strong>84</strong></td>
-      </tr>
-      <tr>
-        <td rowspan="4"><strong>WEY 07</strong></td>
-        <td>60% - 80%</td>
-        <td>7,6</td>
-        <td>14,8</td>
-        <td>17,0</td>
-        <td>17,9</td>
-        <td>18,4</td>
-        <td>18,6</td>
-        <td>18,6</td>
-      </tr>
-      <tr>
-        <td>40% - 59.99%</td>
-        <td>14,0</td>
-        <td>18,0</td>
-        <td>20,0</td>
-        <td>20,2</td>
-        <td>20,5</td>
-        <td>20,8</td>
-        <td>20,8</td>
-      </tr>
-      <tr>
-        <td>20% - 39.99%</td>
-        <td>15,5</td>
-        <td>18,8</td>
-        <td>20,0</td>
-        <td>21,5</td>
-        <td>21,8</td>
-        <td>22,0</td>
-        <td>22,0</td>
-      </tr>
-      <tr>
-        <td>10% - 19,9%</td>
-        <td>20,3</td>
-        <td>21,8</td>
-        <td>22,0</td>
-        <td>22,2</td>
-        <td>22,4</td>
-        <td>22,4</td>
-        <td>22,4</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
 
 <div class="mb-12"><FeedbackForm title="Узнать подробнее" /></div>
 
-<p>* <small class="text-gray-500">Предложение распространяется на новые автомобили WEY 05, приобретаемых у официальных дилеров по тарифу DIRECT. Полная стоимость кредита (далее – ПСК) рассчитывается для каждой процентной ставки. Размер процентной ставки зависит от первоначального взноса и срока кредита. Срок кредита от 12 до 84 мес, при первоначальном взносе от 10% до 80%. При первоначальном взносе от 60% до 80% ПСК составляет 0.085%-17,397%, размер процентной ставки от 0.01% до 17,4%. При первоначальном взносе от 40% до 60% ПСК составляет 9,298%-20,987%, размер процентной ставки от 9,3% до 20,9%. При первоначальном взносе от 30% до 40% ПСК составляет 11,197%-20,897%, размер процентной ставки от 11,2% до 20,9%. При первоначальном взносе от 10% до 30% ПСК составляет 15,297%-22,397%, размер процентной ставки от 15,3% до 22,4%. Сумма кредита от 100 000 руб. до 12 000 000 руб. Условия и тарифы могут быть изменены банком в одностороннем порядке. Банк в праве отказать в выдаче автокредита без объяснения причин. Условия кредитования актуальны на 03.03.2025г. Предложение носит информационный характер, не является публичной офертой. Предложение носит информационный характер, не является публичной офертой. Ваш размер платежа будет определен по результатам рассмотрения заявки. Кредит предоставляется АО ТБанк, ОГРН 1027739642281 ИНН 7710140679, адрес: 127287, город Москва, ул. Хуторская 2-Я, д. 38а стр. 26. Генеральная лицензия №2673 от 09.07.2024.</small></p>
-<p>** <small class="text-gray-500">Предложение распространяется на новые автомобили WEY 05, приобретаемых у официальных дилеров по тарифу DIRECT FIX. Диапазон полной стоимости кредита в % годовых составляет от 7,486 % до 7,492%, в рублях от 11 864,27 руб до 989 852,17руб. Процентная ставка 7,49% в год достигается при следующих условиях кредитования по кредитному продукту: первоначальный взнос от 60% до 80%, срок кредитования 36 мес., отсутствует условие обязательного оформления полиса КАСКО. Сумма кредита от 100 000 руб. до 8 000 000 руб. Условия и тарифы могут быть изменены банком в одностороннем порядке. Банк в праве отказать в выдаче автокредита без объяснения причин. Условия кредитования актуальны на 03.02.2025г. Предложение носит информационный характер, не является публичной офертой. Ваш размер платежа будет определен по результатам рассмотрения заявки. Кредит предоставляется ООО «Драйв Клик Банк», ОГРН 1027739664260 ИНН 6452010742, адрес: 125124, г. Москва, ул. Правды, дом 26. Генеральная лицензия №2168 от 09.12.2022 (бессрочная)</small></p>
-<p>*** <small class="text-gray-500">Предложение распространяется на новые автомобили WEY 07, приобретаемых у официальных дилеров по тарифу DIRECT. Полная стоимость кредита (далее – ПСК) рассчитывается для каждой процентной ставки. Размер процентной ставки зависит от первоначального взноса и срока кредита. Срок кредита от 12 до 84 мес, при первоначальном взносе от 10% до 80%. При первоначальном взносе от 60% до 80% ПСК составляет 7,597%-18,597%, размер процентной ставки от 7,6% до 18,6%. При первоначальном взносе от 40% до 60% ПСК составляет 13,987%-20,797%, размер процентной ставки от 14,0% до 20,8%. При первоначальном взносе от 30% до 40% ПСК составляет 15,497%-21,987%, размер процентной ставки от 15,5% до 22,0%. При первоначальном взносе от 10% до 30% ПСК составляет 20,297%-22,397%, размер процентной ставки от 20,3% до 22,4%. Сумма кредита от 100 000 руб. до 12 000 000 руб. Условия и тарифы могут быть изменены банком в одностороннем порядке. Банк в праве отказать в выдаче автокредита без объяснения причин. Условия кредитования актуальны на 01.02.2025г. Предложение носит информационный характер, не является публичной офертой. Ваш размер платежа будет определен по результатам рассмотрения заявки. Кредит предоставляется АО ТБанк, ОГРН 1027739642281 ИНН 7710140679, адрес: 127287, город Москва, ул. Хуторская 2-Я, д. 38а стр. 26. Генеральная лицензия №2673 от 09.07.2024.</small></p>
+> \* <strong>Вей Кредит</strong>
+
+> \*\* <strong>WEY PRIME</strong><br /> Предложение распространяется на новые автомобили WEY 07, WEY 05 приобретаемые у официальных дилеров по тарифу PRIME*. Полная стоимость кредита (займа) (далее – ПСК) рассчитывается для каждой процентной ставки. Размер процентной ставки зависит от первоначального взноса и срока кредита. Срок кредита: 12мес, 36мес, 60мес и 84мес, при первоначальном взносе от 10% до 80%. Оценивайте свои финансовые возможности и риски. Диапазон Полной стоимости кредита в % годовых составляет от 0,005% до 7,891% ставка составляет от 0,01% до 7,5% на диапазонах первоначального взноса от 60% до 80% от стоимости автомобиля Диапазон Полной стоимости кредита в % годовых составляет от 0,005% до 10,932% ставка составляет от 0,01% до 10,5% на диапазонах первоначального взноса от 50% до 60% от стоимости автомобиля Диапазон Полной стоимости кредита в % годовых составляет от 0,005% до 12,353% ставка составляет от 0,01% до 11,9% на диапазонах первоначального взноса от 40% до 50% от стоимости автомобиля Диапазон Полной стоимости кредита в % годовых составляет от 0,005% до 13,367% ставка составляет от 0,01% до 12,9% на диапазонах первоначального взноса от 30% до 40% от стоимости автомобиля Диапазон Полной стоимости кредита в % годовых составляет от 2,363% до 14,890% ставка составляет от 2,9% до 14,4% на диапазонах первоначального взноса от 10% до 30% от стоимости автомобиля Сумма кредита от 100 000 руб. до 10 000 000 руб. Подробнее уточняйте у официального дилера {legal_entity} по телефону <a href={`tel:${phoneFormat(phone_common)}`} class="whitespace-nowrap">{phone_common}</a>. Изучите все условия кредита (займа) в разделе «Кредит на покупку автомобиля у дилера» на сайте банка https://alfabank.ru/get-money/auto-loan/dealers/?platformId=alfasite * Кредит предоставляет АО Альфа-Банк. ИНН 7728168971 ОГРН 1027700067328 место нахождение 107078, г. Москва, ул. Каланчевская, д. 27. Ген.лицензия ЦБ РФ № 1326 от 16.01.2015. Предложение ограничено и не является публичной офертой. Изучите все условия кредита (займа) на сайте https:/wey.ru/ 
