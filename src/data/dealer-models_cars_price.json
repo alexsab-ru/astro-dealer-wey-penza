@@ -2,8 +2,8 @@
   {
     "brand": "Wey",
     "model": "05",
-    "price": 5149000,
-    "benefit": 850000
+    "price": 5249000,
+    "benefit": 750000
   },
   {
     "brand": "Wey",
@@ -14,7 +14,7 @@
   {
     "brand": "Wey",
     "model": "80 Premium",
-    "price": 6249000,
-    "benefit": 650000
+    "price": 6449000,
+    "benefit": 450000
   }
 ]
