@@ -1,11 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Banner from '@/components/Banner/Banner.astro';
-import SpecialSalonsInfo from '@/components/SpecialSalonsInfo.astro';
-import AdvantagesList from '@/components/Advantages/List.astro';
+import Banner from '@/blocks/banner/Banner.astro';
+import SpecialSalonsInfo from '@/blocks/special-salons-info/SpecialSalonsInfo.astro';
+import AdvantagesList from '@/blocks/advantages/AdvantagesList.astro';
 import settings from '@/data/site/settings.json';
 import modelsData from '@/data/site/models.json';
-import Faq from '@/components/Faq/Index.astro';
+import Faq from '@/blocks/faq/Faq.astro';
 const { brand, legal_city_where } = settings;
 const { models } = modelsData;
 const modelLinks = models.filter(model => model.show).map(m => (`<a href=\"/models/${m.id}/\" class=\"underline text-accent-500 uppercase whitespace-nowrap\">${m.mark_id} ${m.name}</a>`));
